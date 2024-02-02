@@ -12,7 +12,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-
     @Autowired
     private ProductService service;
 
