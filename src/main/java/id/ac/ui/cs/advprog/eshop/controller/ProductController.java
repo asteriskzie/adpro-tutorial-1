@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.eshop.controller;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +47,11 @@ public class ProductController {
     public String editProductPost(@PathVariable String id, @ModelAttribute Product product, Model model) {
         service.edit(id, product);
         return "redirect:../list";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable String id, Model model) {
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
