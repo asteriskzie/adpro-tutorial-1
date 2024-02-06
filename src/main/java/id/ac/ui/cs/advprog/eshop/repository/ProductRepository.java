@@ -11,46 +11,39 @@ import java.util.List;
 
 @Repository
 public class ProductRepository {
-    private List<Product> productData = new ArrayList();
-    
-    private int newProductId = 1; 
-
-    private int searchIndexById(String id) {
-        int lowerBound = 0;
-        int upperBound = productData.size() - 1;
-
-        while (lowerBound <= upperBound) {
-            int mid = (lowerBound + upperBound) / 2;
-            if (productData.get(mid).getProductId().compareTo(id) < 0) {
-                lowerBound = mid + 1;
-            }
-            else if (productData.get(mid).getProductId().compareTo(id) > 0) {
-                upperBound = mid - 1;
-            }
-            else {
-                return mid;
-            }
-        }
-        
-        return productData.size();
-    }
+    private List<Product> productData = new ArrayList<>();
 
     public Product create(Product product) {
-        product.setProductId((newProductId++) + "");
         productData.add(product);
         return product;
+    }
+
+    /**
+     *
+     * @param id the id of product
+     * @return index of the product with given id in productData, return productData.size() if not found
+     */
+    private int searchIndexById(String id) {
+        int index = 0;
+        Iterator<Product> it = findAll();
+        while(it.hasNext()) {
+            Product temp = it.next();
+            if (temp.getProductId().equals(id)) {
+                return index;
+            }
+            index++;
+        }
+        return index;
     }
     
     public Iterator<Product> findAll() {
         return productData.iterator();
     }
-    
     public Product getById(String id) {
         int index = searchIndexById(id);
         if (index < productData.size()) {
-            return productData.get(index);
-        }
-        else {
+            return  productData.get(index);
+        } else {
             return null;
         }
     }
