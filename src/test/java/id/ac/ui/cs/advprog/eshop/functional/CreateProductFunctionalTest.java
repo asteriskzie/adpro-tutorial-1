@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SeleniumJupiter.class)
-public class HomePageFunctionalTest {
+public class CreateProductFunctionalTest {
     /**
      * The port number assigned to the running application during test execution.
      * Set automatically during each test run by Spring Framework's test context.
@@ -36,22 +37,24 @@ public class HomePageFunctionalTest {
     }
 
     @Test
-    void pageTitle_isCorrect(ChromeDriver driver) throws Exception {
+    void createProduct_isCorrect(ChromeDriver driver) throws Exception {
         // Exercise
-        driver.get(baseUrl);
-        String pageTitle = driver.getTitle();
+        driver.get(baseUrl+"/product/list");
+        WebElement createProductLink = driver.findElement(By.linkText("Create Product"));
+        createProductLink.click();
+
+        // Add product
+        WebElement productNameInput = driver.findElement(By.id("nameInput"));
+        productNameInput.sendKeys("Willow");
+        WebElement productQuantityInput = driver.findElement(By.id("quantityInput"));
+        productQuantityInput.sendKeys("100");
+        WebElement submitButton = driver.findElement(By.tagName("button"));
+        submitButton.click();
 
         //Verify
-        assertEquals("ADV Shop", pageTitle);
-    }
-
-    @Test
-    void welcomeMessage_homePage_isCorrect(ChromeDriver driver) throws Exception {
-        // Exercise
-        driver.get(baseUrl);
-        String welcomeMessage = driver.findElement(By.tagName("h3")).getText();
-
-        // Verify
-        assertEquals("Welcome", welcomeMessage);
+        WebElement productName = driver.findElement(By.xpath("//*[text()[contains(., 'Willow')]]"));
+        assertEquals("Willow", productName.getText());
+        WebElement productQuantity = driver.findElement(By.xpath("//*[text()[contains(., '100')]]"));
+        assertEquals("100", productQuantity.getText());
     }
 }
