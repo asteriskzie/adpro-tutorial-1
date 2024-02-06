@@ -66,7 +66,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testDeleteProduct() {
+    void testDeleteProductExist() {
         Product product = new Product();
         product.setProductId("1");
         product.setProductName("Sampo Cap Bambang");
@@ -76,6 +76,19 @@ public class ProductRepositoryTest {
         productRepository.delete("1");
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testDeleteProductNotExist() {
+        Product product = new Product();
+        product.setProductId("1");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        productRepository.delete("2");
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
     }
 
     @Test 
