@@ -14,4 +14,10 @@ public class Product {
     public Product() {
         productId = UUID.randomUUID().toString();
     }
+
+    public Product(String productName, int productQuantity) {
+        this(); 
+        this.productName = productName; 
+        this.productQuantity = productQuantity; 
+    }
 }

@@ -2,7 +2,6 @@ package id.ac.ui.cs.advprog.eshop.repository;
 
 import id.ac.ui.cs.advprog.eshop.model.Product;
 
-import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class ProductRepository {
             }
             index++;
         }
-        return index;
+        return productData.size();
     }
     
     public Iterator<Product> findAll() {
@@ -50,7 +49,7 @@ public class ProductRepository {
     
     public void edit(String id, Product product) {
         int index = searchIndexById(id);
-        if (index < productData.size()) {
+        if (index < productData.size()) {            
             product.setProductId(id);
             productData.set(index, product);
         }
