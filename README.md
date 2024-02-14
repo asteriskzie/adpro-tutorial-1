@@ -3,6 +3,8 @@ Ester Gracia
 22060041991 
 Adpro C 
 
+Deployed app: https://eshop-asteriskzie.koyeb.app/
+
 ## Module 1
 
 ### Reflection 1 
