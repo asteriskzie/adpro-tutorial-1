@@ -13,11 +13,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
 @ExtendWith(MockitoExtension.class)
-public class MainControllerTest {
+public class IndexControllerTest {
     private MockMvc mockMvc; 
 
     @InjectMocks
-    private MainController controller;
+    private IndexController controller;
 
     @BeforeEach 
     public void setup() {
