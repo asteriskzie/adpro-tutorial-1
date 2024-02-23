@@ -28,3 +28,29 @@ I have tried to implement every clean code principles I knew. I tried to make ev
 
 ### Reflection 2
 Yes it has, the workflows have run the tests automatically on every push, which implements Continuous Integration. Since it automate the tests, developers don't have to bother with testing every changes they made. It also has deployed the application to the server automatically after the tests have passed, which implements Continuous Deployment. It makes the deployment process easier. Additionally, it has code scanning to ensure the code quality. It helps to find the bugs and security vulnerabilities in the code.
+
+
+## Module 3
+
+1) Explain what principles you apply to your project!
+2) Explain the advantages of applying SOLID principles to your project with examples.
+3) Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+
+### Reflection 1
+Single Responsibility Principle (SRP): 
+
+Open Closed Principle (OCP):
+
+Liskov Substitution Principle (LSP):
+
+Interface Segregation Principle (ISP):
+
+Dependency Inversion Principle (DIP):
+
+### Reflection 2 
+
+
+### Reflection 3 
+
+
