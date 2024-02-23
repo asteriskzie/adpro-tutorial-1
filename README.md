@@ -36,21 +36,19 @@ Yes it has, the workflows have run the tests automatically on every push, which 
 2) Explain the advantages of applying SOLID principles to your project with examples.
 3) Explain the disadvantages of not applying SOLID principles to your project with examples.
 
-
 ### Reflection 1
-Single Responsibility Principle (SRP): 
+Single Responsibility Principle (SRP): I moved the UUID generation in CarRepository to CarServiceImpl. The responsibility of repository class is to store and retrieve data. The UUID generation is not part of it, but part of the business logic (how we want to identify the car), thus it should be in the service class.
 
-Open Closed Principle (OCP):
+Open Closed Principle (OCP): To handle the id generation, I created the CarIdentifier interface. It's open for extension since we can add more id generation method in the future (other than UUID), but closed for modification since we don't need to modify the existing code to add more id generation method.
 
-Liskov Substitution Principle (LSP):
+Liskov Substitution Principle (LSP): CarController was initially a subclass of ProductController. I changed it to be a separate class since the two classes are not related. The CarController also could not substitute ProductController, so it shouldn't be a subclass of ProductController.
 
-Interface Segregation Principle (ISP):
+Interface Segregation Principle (ISP): - 
 
-Dependency Inversion Principle (DIP):
+Dependency Inversion Principle (DIP): I used the CarService interface, instead of it's implementation, in the CarController class.
 
 ### Reflection 2 
-
+The SOLID principles make the code more maintainable and scalable. For example, the Dependency Inversion Principle is applied in the CarController class where it used CarService (interface) instead of CarServiceImpl (implementation). If we want to change the implementation of service layer, we don't need to modify the CarController class. We just need to change the implementation of the service class. This means that if we want to change the business logic of the application, we don't need to modify the other classes that depend on it. 
 
 ### Reflection 3 
-
-
+If we don't apply the SOLID principles, the code will be hard to maintain and scale. For example, suppose the Single Responsibility Principle is not applied in CarRepository so that it still handles the UUID generation. When there's something wrong with ID generation, it will be hard to find the bug since it's placed in a class that's not responsible for it. 
