@@ -27,7 +27,7 @@ public class OrderTest {
         
         Product product2 = new Product(); 
         product2.setProductId("a2c52556-5e4f-4b6d-8f7f-3f6e3e3f6e3e");
-        product2.setProductName("Sampo Cap Usep");
+        product2.setProductName("Sabun Cap Usep");
         product2.setProductQuantity(1); 
 
         this.products.add(product1); 
@@ -69,8 +69,10 @@ public class OrderTest {
 
     @Test 
     void testCreateOrderInvalidStatus() {
-        Order order = new Order("13652556-012a-4b6d-8f7f-3f6e3e3f6e3e", 
-            this.products, 1708560000L, "Safira Sudrajat", "MEOW");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Order order = new Order("13652556-012a-4b6d-8f7f-3f6e3e3f6e3e", 
+                this.products, 1708560000L, "Safira Sudrajat", "MEOW");
+        }); 
     }
 
     @Test
