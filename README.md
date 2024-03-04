@@ -52,3 +52,11 @@ The SOLID principles make the code more maintainable and scalable. For example, 
 
 ### Reflection 3 
 If we don't apply the SOLID principles, the code will be hard to maintain and scale. For example, suppose the Single Responsibility Principle is not applied in CarRepository so that it still handles the UUID generation. When there's something wrong with ID generation, it will be hard to find the bug since it's placed in a class that's not responsible for it. 
+
+## Module 4 
+
+### Reflection 
+
+1. I do think this TDD workflow is useful enough for me personally, as I get to try the TDD workflow for the first time. However, based on the objectives by Percival, there're rooms for improvement. For correctness, I believe the unit tests have covered enough reasonable cases, but if we want to add more edge cases we can try some malicious user's input such as a very big number that causes overflow. Besides, we haven't implemented functional tests yet, so we can't be sure that the application works as expected from the point of view of the user. For maintainability and productive workflow, I think the tests are all good. They're clean and fast enough.
+   
+2. The tests have successfully followed F.I.R.S.T principle. They are fast, took only several seconds so I don't get bored waiting them running :D. They are isolated, everything is re-initialized in the setUp method so they don't depend on each other. They are repeatable, since they produce the same result every time. They are self-validating, able to auto-detect if it passed or not. They are timely, since they are written before the implementation (thus using TDD).
