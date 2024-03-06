@@ -37,23 +37,25 @@ public class PaymentRepositoryTest {
 
     @Test
     void testSaveCreate() {
-        // happy path tries to create new payment 
         Payment payment = payments.get(0); 
-        Payment result = paymentRepository.save(payment);
+        Payment savedPayment = paymentRepository.save(payment);
 
-        assertEquals(payment, result); 
+        assertEquals(payment, savedPayment); 
     }
 
     @Test 
     void testSaveUpdate() {
-        // happy path tries to update existing payment 
-        Payment originalPayment = payments.get(0);
-        paymentRepository.save(originalPayment); 
+        Payment originalSuccessPayment = payments.get(0);
+        paymentRepository.save(originalSuccessPayment); 
 
-        Payment newPayment = new Payment(originalPayment.getPaymentId(), "Voucher", PaymentStatus.REJECTED.getValue(), new HashMap<String, String>() {{
-            put("voucherCode", "1234ABC5679");
-        }});
-        Payment savedPayment = paymentRepository.save(newPayment);
+        Payment newRejectedPayment = new Payment(
+            originalSuccessPayment.getPaymentId(), 
+            originalSuccessPayment.getPaymentMethod(), 
+            PaymentStatus.REJECTED.getValue(),
+            originalSuccessPayment.getPaymentData()
+        );
+        
+        Payment savedPayment = paymentRepository.save(newRejectedPayment);
 
         assertEquals(savedPayment.getPaymentStatus(), PaymentStatus.REJECTED.getValue());
         assertEquals(paymentRepository.getAll().size(), 1); 
@@ -61,7 +63,6 @@ public class PaymentRepositoryTest {
 
     @Test 
     void testFindByIdIfFound() {
-        // happy path tries to find payment by id that exist
         Payment payment = payments.get(0); 
         paymentRepository.save(payment);
 
@@ -71,7 +72,6 @@ public class PaymentRepositoryTest {
 
     @Test
     void testFindByIdIfIdNotFound() {
-        // unhappy path tries to find payment by id that doesn't exist
         Payment payment = payments.get(0);
         paymentRepository.save(payment);
 
@@ -82,7 +82,6 @@ public class PaymentRepositoryTest {
 
     @Test
     void testGetAll() {
-        // happy path test to get all payments
         for (Payment payment : payments) {
             paymentRepository.save(payment); 
         }
