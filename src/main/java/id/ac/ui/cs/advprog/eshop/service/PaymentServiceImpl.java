@@ -1,7 +1,9 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.model.CashOnDeliveryPayment;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
+import id.ac.ui.cs.advprog.eshop.model.VoucherPayment;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
 
 import java.util.*;
@@ -19,13 +21,21 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override 
     public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
-        // TODO: add the new payment to the payment repository, save payment-id, order-id to paymentOrder
-        Payment payment = new Payment(
-            java.util.UUID.randomUUID().toString(),
-            method,
-            PaymentStatus.SUCCESS.getValue(),
-            paymentData
-        );
+        Payment payment;
+
+        if (method.equals("Voucher")) {
+            payment = new VoucherPayment(UUID.randomUUID().toString(), paymentData);
+        } else if (method.equals("CashOnDelivery")) {
+            payment = new CashOnDeliveryPayment(UUID.randomUUID().toString(), paymentData);
+        } else {
+            payment = new Payment(
+                    java.util.UUID.randomUUID().toString(),
+                    method,
+                    PaymentStatus.SUCCESS.getValue(),
+                    paymentData
+            );
+        }
+
         payment = paymentRepository.create(payment); 
         return payment; 
     }
