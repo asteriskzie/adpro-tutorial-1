@@ -8,7 +8,21 @@ import java.util.ArrayList;
 public class PaymentRepository {
     private List<Payment> paymentData = new ArrayList<>();    
 
-    public Payment save(Payment payment) {
+    public Payment create(Payment payment) {
+        if (payment.getPaymentId() == null || findById(payment.getPaymentId()) != null) {
+            throw new IllegalArgumentException("Payment ID is null or already exists");
+        }
+
+        paymentData.add(payment);
+        return payment; 
+    }
+
+    public Payment update(Payment payment) {
+        if (findById(payment.getPaymentId()) == null) {
+            return create(payment);
+            
+        }
+
         int i = 0; 
         for (Payment savedPayment : paymentData) {
             if (savedPayment.getPaymentId().equals(payment.getPaymentId())) {
@@ -17,11 +31,10 @@ public class PaymentRepository {
             }
             i += 1; 
         }
-        
-        paymentData.add(payment);
+
         return payment; 
     }
-
+    
     public Payment findById(String paymentId) {
         for (Payment savedPayment : paymentData) {
             if (savedPayment.getPaymentId().equals(paymentId)) {

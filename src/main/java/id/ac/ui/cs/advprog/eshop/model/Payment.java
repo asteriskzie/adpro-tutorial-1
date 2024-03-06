@@ -6,9 +6,11 @@ import lombok.Getter;
 import java.util.Map;
 
 import enums.PaymentStatus;
+import lombok.Setter;
 
 @Builder
 @Getter
+@Setter
 public class Payment {
     String paymentId; 
     String paymentMethod; 
@@ -26,7 +28,7 @@ public class Payment {
         if (PaymentStatus.contains(paymentStatus)) {
             this.paymentStatus = paymentStatus; 
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid payment status.");
         }
     }
 }
