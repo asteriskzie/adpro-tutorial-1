@@ -76,7 +76,6 @@ public class PaymentServiceImplTest {
 
     @Test
     void testCreatePayment() {
-        // happy path create new payment 
         Payment payment = payments.get(0);
         Order order = paymentService.paymentOrder.get(payment);
 
@@ -98,8 +97,6 @@ public class PaymentServiceImplTest {
 
     @Test 
     void testCreatePaymentIfAlreadyExists() {
-        // unhappy path, if payment with a certain id already exist 
-        // needs to throw an exception or make a new id instead? idk 
         Payment payment = payments.get(0);
         Order order = paymentService.paymentOrder.get(payment);
 
@@ -124,7 +121,6 @@ public class PaymentServiceImplTest {
 
     @Test
     void testUpdateStatus() {
-        // happy path update status of a payment 
         Payment payment = payments.get(0);
         doReturn(payment).when(paymentRepository).findById(payment.getPaymentId());
         Payment result = paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
@@ -133,7 +129,6 @@ public class PaymentServiceImplTest {
 
     @Test 
     void testUpdateStatusInvalidStatus() {
-        // unhappy path update status of a payment with invalid status
         Payment payment = payments.get(0);
         doReturn(payment).when(paymentRepository).findById(payment.getPaymentId());
         assertThrows(IllegalArgumentException.class,
@@ -144,7 +139,6 @@ public class PaymentServiceImplTest {
 
     @Test 
     void testUpdateStatusInvalidPaymentId() {
-        // unhappy path update status of a payment with invalid payment id (payment doesn't exist)
         Payment payment = payments.get(0);
 
         Payment invalidIdPayment = new Payment(
@@ -163,7 +157,6 @@ public class PaymentServiceImplTest {
 
     @Test
     void testGetPaymentIfIdFound() {
-        // happy path get payment by payment id
         Payment payment = payments.get(0);
         String paymentId = payment.getPaymentId();
         doReturn(payment).when(paymentRepository).findById(paymentId);
@@ -173,15 +166,13 @@ public class PaymentServiceImplTest {
 
     @Test 
     void testGetPaymentIfIdNotFound() {
-        // unhappy path get payment by payment id if payment id not found
-        String notFoundId = "zczc"; 
+        String notFoundId = "zczc";
         doReturn(null).when(paymentRepository).findById(notFoundId);
         assertNull(paymentService.getPayment(notFoundId)); 
     }
 
     @Test
     void testGetAllPayments() {
-        // happy path get all payments
         doReturn(payments).when(paymentRepository).getAll();
         List<Payment> result = paymentService.getAllPayment();
         assertEquals(2, result.size());
