@@ -38,7 +38,7 @@ public class PaymentRepositoryTest {
     @Test
     void testSaveCreate() {
         Payment payment = payments.get(0); 
-        Payment savedPayment = paymentRepository.save(payment);
+        Payment savedPayment = paymentRepository.create(payment);
 
         assertEquals(payment, savedPayment); 
     }
@@ -46,7 +46,7 @@ public class PaymentRepositoryTest {
     @Test 
     void testSaveUpdate() {
         Payment originalSuccessPayment = payments.get(0);
-        paymentRepository.save(originalSuccessPayment); 
+        paymentRepository.create(originalSuccessPayment); 
 
         Payment newRejectedPayment = new Payment(
             originalSuccessPayment.getPaymentId(), 
@@ -55,7 +55,7 @@ public class PaymentRepositoryTest {
             originalSuccessPayment.getPaymentData()
         );
         
-        Payment savedPayment = paymentRepository.save(newRejectedPayment);
+        Payment savedPayment = paymentRepository.update(newRejectedPayment);
 
         assertEquals(savedPayment.getPaymentStatus(), PaymentStatus.REJECTED.getValue());
         assertEquals(paymentRepository.getAll().size(), 1); 
@@ -64,7 +64,7 @@ public class PaymentRepositoryTest {
     @Test 
     void testFindByIdIfFound() {
         Payment payment = payments.get(0); 
-        paymentRepository.save(payment);
+        paymentRepository.create(payment);
 
         Payment findResult = paymentRepository.findById(payment.getPaymentId()); 
         assertEquals(findResult, payment); 
@@ -73,7 +73,7 @@ public class PaymentRepositoryTest {
     @Test
     void testFindByIdIfIdNotFound() {
         Payment payment = payments.get(0);
-        paymentRepository.save(payment);
+        paymentRepository.create(payment);
 
         String otherPaymentId = payments.get(1).getPaymentId(); 
         Payment findResult = paymentRepository.findById(otherPaymentId);
@@ -83,7 +83,7 @@ public class PaymentRepositoryTest {
     @Test
     void testGetAll() {
         for (Payment payment : payments) {
-            paymentRepository.save(payment); 
+            paymentRepository.create(payment); 
         }
 
         List<Payment> result = paymentRepository.getAll();
