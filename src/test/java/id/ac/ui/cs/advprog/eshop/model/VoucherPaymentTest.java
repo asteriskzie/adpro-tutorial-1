@@ -24,20 +24,20 @@ public class VoucherPaymentTest {
     @Test
     public void testCreateVoucherPaymentSuccess() {
         VoucherPayment payment = new VoucherPayment(paymentId, paymentData);
-        assertEquals("SUCCESS", payment.getPaymentStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getPaymentStatus());
     }
 
     @Test
     public void testCreateVoucherPaymentNoData() {
         paymentData.clear();
         VoucherPayment payment = new VoucherPayment(paymentId, paymentData);
-        assertEquals("REJECTED", payment.getPaymentStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getPaymentStatus());
     }
 
     @Test
     public void testCreateVoucherPaymentWrongData() {
         paymentData.put("voucherCode", "awikwok");
         VoucherPayment payment = new VoucherPayment(paymentId, paymentData);
-        assertEquals("REJECTED", payment.getPaymentStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getPaymentStatus());
     }
 }
