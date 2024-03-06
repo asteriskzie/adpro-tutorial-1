@@ -15,8 +15,7 @@ public class OrderRepository {
         int i = 0; 
         for (Order savedOrder : orderData) {
             if (savedOrder.getId().equals(order.getId())) {
-                orderData.remove(i); 
-                orderData.add(i, order); 
+                orderData.set(i, order);
                 return order; 
             }
             i += 1; 

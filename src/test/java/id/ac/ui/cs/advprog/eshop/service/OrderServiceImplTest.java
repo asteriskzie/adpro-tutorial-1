@@ -65,7 +65,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    void TestUpdateStatus() {
+    void testUpdateStatus() {
         Order order = orders.get(1);
         Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(),
                 order.getAuthor(), OrderStatus.SUCCESS.getValue());
